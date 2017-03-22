@@ -88,6 +88,18 @@ class App extends Component {
         /* ASYNC - AWAIT DOCUMENTATION : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/await */
 
         try {
+          var request = require('request-promise');
+
+          var options = {
+          headers:{ 'X-Auth-Token': '772b03e623924c6c8583397247999132'},
+          url:'http://api.football-data.org/v1/soccerseasons',
+          dataType: 'json';
+          type: 'GET',
+        }
+        request.get(options).then(function(body){
+        var json = JSON.parse(body);
+        console.log(json);
+        });
             let weather = await get( ENDPOINTS.WEATHER_API_URL, {
                 //YOU NEED TO PROVIDE YOUR "APIXU" API KEY HERE, see /utils/api.js file to grab the DOCUMENTATION file
                 key: '07fb607594c34e5b9ca213416172302',
@@ -118,6 +130,11 @@ class App extends Component {
             Materialize.toast( error, 8000, 'error-toast' )
             console.log( 'Failed fetching data: ', error )
         }
+
+      /*
+
+*/
+
 
     }
 
@@ -164,7 +181,7 @@ class App extends Component {
 
         /*
             DATA FORMAT SENT BY THE API LOKKS LIKE THIS :
-    
+
             {
                 "pixabayPicture": string, //CUSTOM ADD VIA PIXABAY API CALL
                 "location": {
@@ -187,7 +204,7 @@ class App extends Component {
                     "wind_kph": number
                 }
             }
-    
+
         */
 
         if ( weather ) {
